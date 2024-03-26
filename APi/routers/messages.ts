@@ -20,10 +20,16 @@ messagesRouter.get('/:id', async (req, res) => {
 })
 
 messagesRouter.post('/', async  (req, res) => {
+
     const messageData:MessageWithoutId = {
         message: req.body.message,
         author: req.body.author
     }
+
+    if(!messageData.message || !messageData.author) {
+        return res.status(400).json({error:'Author and message must be present in the request'});
+    }
+
     const message = await fileDb.addItem(messageData);
     return  res.send(message);
 });

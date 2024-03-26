@@ -17,7 +17,7 @@ const fileDb = {
         }
     },
     async getItem() {
-        return data
+        return data.slice(-30);
     },
     async getItemById(id: string) {
         return data.find(message => message.id === id);
@@ -28,7 +28,6 @@ const fileDb = {
             ...item,
             date: new Date().toISOString()
         }
-        console.log(item);
         data.push(message);
         await this.save()
         return message;
